@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+import dj_database_url
 
 from pathlib import Path
 
@@ -86,6 +87,7 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+DATABASES["default"]=dj_database_url.parse("postgres://db_musicstream_user:ERmX66k906e5gLrkXwEf38jORsN7KC8f@dpg-cppbdsmehbks73bv4bd0-a.oregon-postgres.render.com/db_musicstream")
 
 
 # Password validation
