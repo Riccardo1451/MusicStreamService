@@ -1,0 +1,83 @@
+{% extends 'stream/base.html' %}
+{% load static %}
+
+{% block title %}
+    Songs-displaying
+{% endblock %}
+{% block style %}
+<style>
+    .btn-link{
+    background: none;
+    border: none;
+    color: #007bff; /* Colore del testo, usa quello che preferisci */
+    text-decoration: underline; /* Sottolinea il testo per simularlo come un link */
+    cursor: pointer; /* Cambia il cursore al passaggio sopra il pulsante */
+    padding: 0; /* Rimuovi il padding predefinito */
+    font: inherit; /* Eredità del font dal genitore */
+    text-decoration: none;
+    }
+    .btn-link:hover{
+        text-decoration: underline;
+        color: #0056b3;
+    }
+</style>
+{% endblock style %}
+{% block content %}
+    <div class="center-title">
+        <h1>{{ playlist.playlist_name}}</h1>
+    </div>
+    <small class="center-title">
+        <p style="color:lightslategray">{{ playlist.created_by }}</p>
+    </small>
+    <div class="text-center">
+        <small>
+            condividi la playlist con un amico <a href="{% url 'share-playlist' playlist_id=playlist.id %}">Condividi</a>
+        </small>
+    </div>
+    <div class="text-center">
+        {% if playlist.created_by == user %} <!-- la playlist può essere eliminata solo da chi l'ha creata-->
+        <small>
+            Vuoi rimuovere questa playlist? 
+                <form class="d-inline" action="{% url 'remove-playlist' playlist_id=playlist.id %}" method="POST">
+                    {% csrf_token %}
+                    <button class = "btn-link" type="submit">Rimuovi Ora</button>
+                </form>
+        </small>
+        {% endif %}
+    </div>
+    <div class="center-list">
+        {% if playlist.playlist_songs.exists %}
+            <ul>
+                {% for song in playlist.playlist_songs.all %}
+                <li>
+                    <div class="song-element">
+                        <div class="song-img"><img src="https://placehold.co/80"></div>
+                        <div class="song-spec">
+                            <h2>{{ song.song_title }}</h2>
+                            <div class="d-inline">
+                                <h5 class="d-inline">{{ song.song_artist.artist_name }} &#x2022;</h5>
+                                <h5 class="d-inline">{{ song.song_album }}</h5>
+                            </div>
+                        </div>  
+                        <div class="song-album">
+                            <form method="POST" action="{% url 'rm-song-from-playlist' playlist_id=playlist.id %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="song_id" value="{{ song.id }}">
+                                <div>
+                                    <a href="#" class="song-add-button" style="text-decoration: none;"><button style="line-height:30px ;" type="submit">-</button></a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <small>
+                <p>Non è presente nessuna canzone <a href="{% url 'list-view' %}">Aggiungi adesso!</a></p>
+                
+            </small>
+        {% endif %}
+    </div>
+{% endblock %}
+

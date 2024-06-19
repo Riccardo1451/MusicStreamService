@@ -1,0 +1,18 @@
+{% extends "stream/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <h2>Benvenuto nell'applicazione di streaming di musica</h2>
+    <h3>Al suo interno troverai diverse funzionalità tra cui:</h3>
+    <ul>
+        <li>Creazione di un account personale, con dati e email</li>
+        <li>Account con personalizzazione, manuale tramite playlist e automaitca tramite suggerimenti basti su algoritmi di raccomandazione</li>
+        <li>Condivisione di playlist tra i vari utenti</li>
+    </ul>
+    {% if user.is_authenticated %}
+        <h5>Visualizza subito le canzoni disponibili o le tue playlist nelle apposite sezioni</h5>
+    {% else %}
+        <h5>Registrati subito <a href="{% url 'register-view' %}">Sign Up</a></h5>
+        <h5>Se invece già possiedi un account, che aspetti accedi ora ! <a href="{% url 'login-view' %}">Log In</a></h5>
+    {% endif %}
+
+{% endblock content %}

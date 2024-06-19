@@ -1,0 +1,77 @@
+{% extends 'stream/base.html' %}
+{% load static %}
+
+
+{% block title %}
+    playlist display
+{% endblock %}
+{% block style %}
+<style>
+    .song-element{
+        grid-template-columns: 20% 80%;
+        grid-template-rows:10% 80% 10%;
+    }
+    .song-element small{
+        color:lightslategray;
+    }
+    .song-img{
+        grid-column-start:1 ;
+        grid-row-start: 2;
+        
+        align-items: center;
+    }
+    .playlist-name{
+        grid-column-start:2;
+        grid-row-start: 2;
+
+
+    }
+
+</style>
+{% endblock style %}
+{% block content %}
+    <div class="center-title">
+        <h2>Qui troverai le tue playlist e le playlist condivise</h2>
+    </div>
+    <div class="center-list" >
+        <ul>
+           {% for playlist in playlists %}
+               <li>
+                    <a href="{% url 'display-playlist-songs' playlist.id %}" style="z-index: 30; position: relative; text-decoration: none;"> 
+                        <div class="song-element">         
+                            <div class='song-img'><img src="https://placehold.co/80" alt="playlist-img"></div>
+                            <div class="playlist-name">
+                                <h2>{{ playlist.playlist_name }}</h2>
+                                <small>
+                                    <p>{{ playlist.created_by }}</p>
+                                </small>
+                            </div>  
+                                                    
+                        </div>
+                    </a> 
+                </li>
+            {% endfor %}
+            {% for playlist in shared_playlist %}
+            <li>
+                <a href="{% url 'display-playlist-songs' playlist.id %}" style="z-index: 30; position: relative; text-decoration: none;"> 
+                    <div class="song-element">         
+                        <div class='song-img'><img src="https://placehold.co/80" alt="playlist-img"></div>
+                        <div class="playlist-name">
+                            <h2>{{playlist.playlist_name }}</h2>
+                            <small>
+                                <p>playlist shared by &#x2022 {{playlist.created_by}}</p>
+                            </small>
+                        </div>  
+                                                
+                    </div>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="center-title">
+        <small>
+            vuoi crearne una nuova? <a href="{%url 'playlist-creation'%}">Crea playlist</a>
+        </small>
+    </div>
+{% endblock %}

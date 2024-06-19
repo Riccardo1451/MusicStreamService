@@ -1,0 +1,33 @@
+{% extends 'stream/base.html' %}
+{% load static %}
+
+{% block title %}
+    Songs-listing
+{% endblock %}
+{% block content %}
+    <div class="center-title">
+        <h1>Song list</h1>
+    </div>
+    <div class="center-list">
+        <ul>
+            {% for song in songs %}
+                <li>
+                    <div class="song-element">
+                        <div class="song-img"><img src="https://placehold.co/80"></div>
+                        <div class="song-spec">
+                            <h2>{{ song.song_title }}</h2>
+                            <div class="d-inline">
+                                <h5 class="d-inline">{{ song.song_artist.artist_name }} &#x2022;</h4>
+                                <h5 class="d-inline">{{ song.song_album }}</h3>
+                            </div>
+                        </div>
+                        <div class="song-album">
+                            <a class="song-add-button" href="{% url 'add-song-to-playlist' song.id%}" style="text-decoration: none;"><button type="button">+</button></a>
+                            <input type="hidden" name="song_id" value="{{song.id}}">
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

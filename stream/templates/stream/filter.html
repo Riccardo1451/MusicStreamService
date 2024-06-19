@@ -1,0 +1,15 @@
+{% extends 'stream/base.html' %}
+{% load static %}
+
+{% block title %}
+    filter
+{% endblock %}
+{% block content %}
+    <div class="text-center"> 
+        <form method="POST" class="d-inline" >
+            {% csrf_token %}
+            {{myfilter.form}}
+            <button class="d-inline" style='cursor: pointer;' type="submit">Filtra</button>
+        </form>
+    </div>
+{% endblock %}

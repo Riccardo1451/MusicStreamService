@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}base-view{% endblock %}</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'stream/listings.css' %}">
+    <link rel="stylesheet" href="{% static 'stream/style.css' %}">
+
+    {% block style %}
+
+    {% endblock style %}
+</head>
+<body>
+    <header>
+        <h1>Music Streaming</h1>
+        <nav>
+            <ul>
+                
+                <li><a href="{% url 'home-view' %}">Home</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'list-view' %}">Songs</a></li>
+                <li><a href="{% url 'list-artist' %}">Artists</a></li>
+                <li><a href="{% url 'playlist-view'%}">Playlist</a></li>
+                <li><a href="{% url 'raccomandation-view'%}">Raccomended</a></li>
+                <li><a href="{% url 'filter-view' %}">Filter</a></li>
+                <li class="search-bar"><a href="#">
+                    <form method="POST" action="{% url 'song-search' %}">
+                        {% csrf_token %}
+                        <input type="search" placeholder="Cerca canzone..." name="search-value">
+                        <button style='cursor: pointer;'type="submit">Cerca</button>
+                    </form>
+                    </a>
+                </li>
+                {% endif %}
+                    
+            </ul>
+        </nav>
+        <div class="logout-profile">
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'profile-view'%}">{{user.username}}</a></li>
+            <li><a href="{% url 'logout-view'%}">Log Out</a></li>
+            {% else %}
+            <li><a href="{% url 'login-view'%}">Log In</a></li>
+            <li><a href="{% url 'register-view'%}">Register</a></li>
+            {% endif %}
+        </div>
+    </header>
+        
+    
+    <main>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% block content %}
+        
+        {% endblock %}
+        
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 Music Streaming</p>
+    </footer>
+
+
+</body>
+</html>

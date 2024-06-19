@@ -1,0 +1,29 @@
+{% extends 'stream/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}
+    playlist form
+{% endblock %}
+{% block content %}
+    <div class="center-title">
+        <h2>Seleziona la playlist in cui vuoi aggiungere la canzone</h2>
+    </div>
+    <div class="center-list" >
+        <form method="POST">
+            {% csrf_token %}
+            <label for="playlist_id"> Seleziona una playlist</label>
+            <select name="playlist_id" id="playlist_id">
+                {% if playlists.exists %}
+                {% for playlist in playlists %}
+                    <option value="{{ playlist.id }}">{{ playlist.playlist_name }}</option>
+                {% endfor %}
+                {% else %}
+                     <option value="" disabled>Nessuna playlist disponibile</option>
+                {% endif %}
+
+            </select>
+            <input type="submit" value="Aggiungi">
+        </form>
+    </div>
+{% endblock %}

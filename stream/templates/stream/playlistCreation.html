@@ -1,0 +1,15 @@
+{% extends 'stream/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}
+    playlist creation
+{% endblock %}
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" value="Crea Playlist">
+        <input type="hidden" name="playlist_id" value="{{ playlist.id }}"> <!-- crea un valore id per riconoscere la playlist --> 
+    </form>
+{% endblock %}

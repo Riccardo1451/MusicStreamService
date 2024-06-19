@@ -1,0 +1,24 @@
+{% extends 'stream/base.html' %}
+{% load static %}
+
+{% block title %}
+    Artist-listing
+{% endblock %}
+{% block content %}
+    <div class="center-title">
+        <h1>Artist list</h1>
+    </div>
+    <div class="center-list">
+        <ul>
+            {% for artist in artist %}
+                <li>
+                    <div class="song-element" style="grid-column-gap: 15px;">
+                        <div class="song-artis"><h3>{{ artist.artist_name }}</h3></div>
+                        <div class="song-artis"><h3>{{ artist.artist_nickname }}</h3></div>
+                        <div class="song-artis"><h3>{{ artist.artist_date_of_birth }}</h3></div>
+                    </div>
+                 </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

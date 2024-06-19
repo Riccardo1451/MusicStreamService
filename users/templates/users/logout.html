@@ -1,0 +1,11 @@
+{% extends "stream/base.html" %}
+
+{% block content %}
+    <h2>Sei stato disconnesso</h2>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+        <a href="{% url 'login-view' %}">Accedi di nuovo!</a>
+        </small>
+    </div>
+
+{% endblock content %}

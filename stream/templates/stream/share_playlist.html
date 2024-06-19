@@ -1,0 +1,20 @@
+{% extends 'stream/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}
+    playlist sharing
+{% endblock %}
+{% block content %}
+    <div class="center-title">
+        <h2>Seleziona l'utente</h2>
+    </div>
+    <div class="center-list" >
+        <h2>Condividi Playlist: {{ playlist.name }}</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form|crispy}}
+            <button type="submit">Condividi</button>
+        </form>
+    </div>
+{% endblock %}
