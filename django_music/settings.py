@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import dj_database_url
+import os
 
 from pathlib import Path
 
@@ -21,12 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-ii^#t9*m9h!y$=!(kn$d9-49dl^)ne9l9a39e&bzuz^^*v#4t="
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG","False").lower() == "true"
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
 
 # Application definition
@@ -87,7 +88,9 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
-DATABASES["default"]=dj_database_url.parse("postgres://db_musicstream_user:ERmX66k906e5gLrkXwEf38jORsN7KC8f@dpg-cppbdsmehbks73bv4bd0-a.oregon-postgres.render.com/db_musicstream")
+
+database_url = os.environ.get("DATABASE_URL")
+DATABASES["default"]=dj_database_url.parse(database_url)
 
 
 # Password validation
