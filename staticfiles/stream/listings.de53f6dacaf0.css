@@ -1,0 +1,103 @@
+ul{
+    list-style: none;
+}
+
+li{
+    margin:5px 0 5px 0;
+}
+.center-title{
+    display: flex;
+    justify-content: center;
+}
+.center-list{
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+}
+.song-element{
+    background-color: black;
+    border-radius: 5px;
+    border: 3px solid green;
+    color:white;
+    width: 100%;
+    
+    max-width: 1200px;
+    padding:10px;
+
+    display: grid;
+    grid-template-columns: 20% 50% 30%;
+}
+
+.song-img{
+    grid-column-start: 1;
+    display: flex;
+
+    align-items: center;
+}
+.song-spec{
+    grid-column-start: 2;
+    display: inline;
+}
+.song-album{
+    grid-column-start: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+    z-index: 0;
+}
+.song-add-button{
+    position:absolute;
+    right: 0;
+    top:35%;
+}
+.song-add-button button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 30px;
+    height: 30px;
+
+    font-size: 24px;
+    font-weight: bold;
+
+    border-radius: 70%;
+    background-color: black;
+    color: white; 
+    border: 2px solid green;
+
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+    box-shadow: 0px 2px 4px white; /* Ombra inferiore */
+}
+.song-add-button button:hover{
+    cursor: pointer;
+}
+.song-add-button button:hover::before {
+    content: '';
+    position: absolute;
+    top: -1px; /* Posizionato leggermente sopra */
+    width: 100%;
+    height: 100%;
+    border-radius: 15px; /* Stesso raggio del pulsante */
+    background: white; /* Colore bianco semi-trasparente */
+    z-index: -1; /* Posizionato dietro il pulsante */
+    box-shadow: 0px -2px 4px white; /* Ombra superiore */
+}
+.song-add-button button:hover::after{
+    content:'';
+    box-shadow: 0px 2px 4px white;
+    position: absolute;
+    bottom:-1px;
+    width: 100%;
+    height: 100%;
+    border-radius:15px;
+    background: white;
+    z-index: -1;
+
+}
+.song-spec h2,h4,p{
+    margin:5px 0 5px 0;
+}
