@@ -8,7 +8,12 @@
     <div class="text-center"> 
         <form method="POST" class="d-inline" >
             {% csrf_token %}
-            {{myfilter.form}}
+            <span>Seleziona un artista</span>
+            <select name="artist_name">
+                {% for artist in artistSet %}
+                    <option>{{ artist.artist_name }}</option>
+                {% endfor %}
+            </select>
             <button class="d-inline" style='cursor: pointer;' type="submit">Filtra</button>
         </form>
     </div>

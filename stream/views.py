@@ -85,8 +85,8 @@ def rmPlaylist(request, playlist_id):
 @login_required
 def songSearch(request):
     if request.method == 'POST':
-        searched=request.POST['search-value']
-        songs=Song.objects.filter(song_title__contains=searched)
+        searched=request.POST['search-value'].strip()
+        songs=Song.objects.filter(song_title__icontains = searched)
         
         return render(request, 'stream/search-song.html', {'searched': searched, 'songs':songs })
     
@@ -129,7 +129,7 @@ def raccomSong(request):#esegue una ricerca sul profilo utente, e rendere cancon
 
 @login_required
 def filterFunc(request):
-
+    artistSet = Artist.objects.all()
 
     if request.method =='POST':
         
@@ -141,4 +141,4 @@ def filterFunc(request):
         return render(request, 'stream/song-filtered.html', {'songs':songs,'artist':artist, 'artist_name':artist_name})
     
     myfilter = ArtistFilter()
-    return render(request, 'stream/filter.html', {'myfilter':myfilter})
+    return render(request, 'stream/filter.html', {'myfilter':myfilter, 'artistSet':artistSet})
